@@ -63,13 +63,6 @@ const App = () => {
         setConvert={setConvert}
         setTabs={setTabs}
       />
-      {/* <CodeText
-        toggle={toggle}
-        header={header}
-        subHeader={subHeader}
-        tabs={tabs}
-        convert={convert}
-      /> */}
       <Actions
         toggle={toggle}
         header={header}
