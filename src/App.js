@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
-import CodeText from "./components/CodeText/CodeText";
 import TableForm from "./components/TableForm/TableForm";
 import Actions from "./components/Actions/Actions";
 
