@@ -15,6 +15,7 @@ const HeaderInput = ({ header, subHeader, setHeader, setSubHeader }) => {
         alignItems: "center",
         width: "100%",
         gap: 2,
+        m: "15px 0",
       }}
     >
       <TextField

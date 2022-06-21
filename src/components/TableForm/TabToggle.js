@@ -8,8 +8,8 @@ const TabToggle = ({ convert, setConvert }) => {
       component="div"
       sx={{
         display: "flex",
-        justifyContent: "space-between",
-        gap: 5,
+        justifyContent: "flex-start",
+        gap: 2,
         padding: "10px 0",
       }}
     >
@@ -18,7 +18,7 @@ const TabToggle = ({ convert, setConvert }) => {
         value="check"
         selected={convert}
         onClick={() => setConvert(!convert)}
-        sx={{ width: 10, height: 10 }}
+        sx={{ width: 10, height: 10, border: "2px solid black"}}
       >
         {convert && <CheckIcon />}
       </ToggleButton>

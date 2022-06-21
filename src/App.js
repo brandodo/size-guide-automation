@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import CodeText from "./components/CodeText/CodeText";
 import TableForm from "./components/TableForm/TableForm";
 import Actions from "./components/Actions/Actions";
@@ -31,6 +31,26 @@ const App = () => {
         height: "100%",
       }}
     >
+      <Typography variant="h2" sx={{ p: 3, textAlign: "center" }}>
+        Size Guide Generator
+      </Typography>
+      <Typography
+        variant="p"
+        sx={{
+          p: 2,
+          textAlign: "left",
+          width: "50%",
+          alignSelf: "center",
+          backgroundColor: "lightgrey",
+          borderRadius: "10px",
+          boxShadow: "3px 3px 5px black",
+        }}
+      >
+        Use this form to generate your brand specific size guides by filling out
+        the prompts below. Once you are satisfied with the data, you can preview
+        the final table or download the HTML by clicking either buttons at the
+        very end of this form.
+      </Typography>
       <TableForm
         header={header}
         subHeader={subHeader}

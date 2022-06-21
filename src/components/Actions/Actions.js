@@ -2,8 +2,6 @@ import React, { useRef } from "react";
 import { Box, Button } from "@mui/material";
 
 const Actions = ({ toggle, header, subHeader, tabs, convert }) => {
-  const codeRef = useRef();
-
   const buttonStyle = { height: 40, width: "35%" };
   const htmlHeader = toggle
     ? `<head>

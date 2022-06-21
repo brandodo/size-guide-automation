@@ -39,6 +39,20 @@ const CategoryTabs = ({ tabs, setTabs }) => {
     );
   });
 
+  const addRow = (tabIndex) => {
+    const temp = [...tabs];
+    temp[tabIndex].rows.push(["S", "1", "2", "3"]);
+
+    setTabs(temp);
+  };
+
+  const removeRow = (tabIndex) => {
+    const temp = [...tabs];
+    temp[tabIndex].rows.pop();
+
+    setTabs(temp);
+  };
+
   const updateRows = (input, tabIndex, rowIndex) => {
     const temp = [...tabs];
     temp[tabIndex].rows[rowIndex] = input.split(",");
@@ -63,6 +77,8 @@ const CategoryTabs = ({ tabs, setTabs }) => {
         header={tab.header ? tab.header : ""}
         changeHandler={updateRows}
         updateTableName={updateTableName}
+        addRow={addRow}
+        removeRow={removeRow}
       >
         {tab.tabname}
       </TabPanel>
@@ -107,7 +123,7 @@ const CategoryTabs = ({ tabs, setTabs }) => {
         "& button": { m: 1, alignSelf: "center" },
       }}
     >
-      <Box component="div">
+      <Box component="div" sx={{ marginTop: 2 }}>
         <Button
           variant="contained"
           size="small"

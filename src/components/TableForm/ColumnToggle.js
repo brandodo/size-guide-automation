@@ -8,9 +8,9 @@ const ColumnToggle = ({ toggle, setToggle }) => {
       component="div"
       sx={{
         display: "flex",
-        justifyContent: "space-between",
-        gap: 5,
-        padding: "10px 0"
+        justifyContent: "flex-start",
+        gap: 2,
+        padding: "10px 0",
       }}
     >
       <Typography>More than 6 columns?</Typography>
@@ -18,7 +18,7 @@ const ColumnToggle = ({ toggle, setToggle }) => {
         value="check"
         selected={toggle}
         onClick={() => setToggle(!toggle)}
-        sx={{ width: 10, height: 10 }}
+        sx={{ width: 10, height: 10, border: "2px solid black" }}
       >
         {toggle && <CheckIcon />}
       </ToggleButton>
