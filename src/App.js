@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box } from "@mui/material";
 import CodeText from "./components/CodeText/CodeText";
 import TableForm from "./components/TableForm/TableForm";
+import Actions from "./components/Actions/Actions";
 
 const App = () => {
   const [header, setHeader] = useState("Size Guide");
@@ -24,7 +25,11 @@ const App = () => {
   return (
     <Box
       component="div"
-      sx={{ display: "flex", height: "100%", overflow: "hidden" }}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
     >
       <TableForm
         header={header}
@@ -38,7 +43,14 @@ const App = () => {
         setConvert={setConvert}
         setTabs={setTabs}
       />
-      <CodeText
+      {/* <CodeText
+        toggle={toggle}
+        header={header}
+        subHeader={subHeader}
+        tabs={tabs}
+        convert={convert}
+      /> */}
+      <Actions
         toggle={toggle}
         header={header}
         subHeader={subHeader}

@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
 import { Box, Button } from "@mui/material";
 
-const CodeText = ({ toggle, header, subHeader, tabs, convert }) => {
+const Actions = ({ toggle, header, subHeader, tabs, convert }) => {
   const codeRef = useRef();
 
+  const buttonStyle = { height: 40, width: "35%" };
   const htmlHeader = toggle
     ? `<head>
   <meta charset="utf-8" />
@@ -180,7 +181,7 @@ const CodeText = ({ toggle, header, subHeader, tabs, convert }) => {
       <!-- END TABLE CONTENT -->`;
 
   const preview = () => {
-    const getText = codeRef.current.innerText;
+    const getText = fullCode;
     const newElement = document.createElement("a");
     const file = new Blob([getText], { type: "text/html" });
     newElement.href = URL.createObjectURL(file);
@@ -189,7 +190,7 @@ const CodeText = ({ toggle, header, subHeader, tabs, convert }) => {
   };
 
   const download = () => {
-    const getText = codeRef.current.innerText;
+    const getText = fullCode;
     const newElement = document.createElement("a");
     const file = new Blob([getText], { type: "text/html" });
     newElement.href = URL.createObjectURL(file);
@@ -197,20 +198,44 @@ const CodeText = ({ toggle, header, subHeader, tabs, convert }) => {
     newElement.click();
   };
 
+  const fullCode = `${htmlHeader}
+
+  <div id="dsg-editorial" class="dsg-editorial dsg-en">
+    ${headerText}
+  
+    <section class="size-guide">
+      <!-- TABLE CONTAINER -->
+      <div class="size-guide__tabs">
+        <!-- HEADER - TABS -->
+        <div class="size-guide__tabs--header">
+          ${categoryTabs}
+          ${conversion}
+        </div>
+        <!-- END HEADER - TABS -->
+        
+        ${tableContent}
+      </div>
+      <!-- END TABLE CONTAINER -->
+    </section>
+  </div>
+  <!-- END #dsg-editorial -->
+  
+  <script src="https://content.hbc.com/chad/bay/editorial/000-0000-00-00-size-guide-template-v2/bay-size-guide-template-v2-0000-00-00-main-2.0.1.js"></script>`;
   return (
     <Box
       sx={{
         p: "10px",
         gap: 2,
-        width: "50%",
+
         display: "flex",
         flexDirection: "column",
+        alignItems: "center",
       }}
     >
       <Button
         variant="outlined"
         size="small"
-        sx={{ height: 30 }}
+        sx={buttonStyle}
         onClick={() => preview()}
       >
         Preview
@@ -218,42 +243,13 @@ const CodeText = ({ toggle, header, subHeader, tabs, convert }) => {
       <Button
         variant="contained"
         size="small"
-        sx={{ height: 30 }}
+        sx={buttonStyle}
         onClick={() => download()}
       >
         Download HTML
       </Button>
-      <Box
-        component="pre"
-        sx={{ width: "100%", height: "100%", overflow: "scroll" }}
-        ref={codeRef}
-      >
-        {`${htmlHeader}
-
-<div id="dsg-editorial" class="dsg-editorial dsg-en">
-  ${headerText}
-
-  <section class="size-guide">
-    <!-- TABLE CONTAINER -->
-    <div class="size-guide__tabs">
-      <!-- HEADER - TABS -->
-      <div class="size-guide__tabs--header">
-        ${categoryTabs}
-        ${conversion}
-      </div>
-      <!-- END HEADER - TABS -->
-      
-      ${tableContent}
-    </div>
-    <!-- END TABLE CONTAINER -->
-  </section>
-</div>
-<!-- END #dsg-editorial -->
-
-<script src="https://content.hbc.com/chad/bay/editorial/000-0000-00-00-size-guide-template-v2/bay-size-guide-template-v2-0000-00-00-main-2.0.1.js"></script>`}
-      </Box>
     </Box>
   );
 };
 
-export default CodeText;
+export default Actions;

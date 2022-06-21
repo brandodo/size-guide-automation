@@ -23,8 +23,8 @@ const TableForm = ({
       sx={{
         display: "flex",
         flexDirection: "column",
-        width: "50%",
-        overflow: "scroll",
+        width: "100%",
+
       }}
     >
       <Box

@@ -8,7 +8,7 @@ const CategoryTabs = ({ tabs, setTabs }) => {
   const tabInput = tabs.map((tab, index) => {
     return (
       <Box
-        key={`tab-${index   }`}
+        key={`tab-${index}`}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -22,7 +22,7 @@ const CategoryTabs = ({ tabs, setTabs }) => {
           label={`tab-${index + 1} name`}
           variant="filled"
           value={tab.tabname}
-          sx={{ width: "50%", margin: 2 }}
+          sx={{ width: "70%", margin: 2 }}
           onChange={(e) => {
             const temp = [...tabs];
             temp[index].tabname = e.target.value;
@@ -46,6 +46,13 @@ const CategoryTabs = ({ tabs, setTabs }) => {
     setTabs(temp);
   };
 
+  const updateTableName = (input, index) => {
+    const temp = [...tabs];
+
+    temp[index].header = input;
+    setTabs(temp);
+  };
+
   const tabPanel = tabs.map((tab, index) => {
     return (
       <TabPanel
@@ -53,7 +60,9 @@ const CategoryTabs = ({ tabs, setTabs }) => {
         value={currentTab}
         index={index}
         rows={tab.rows}
+        header={tab.header ? tab.header : ""}
         changeHandler={updateRows}
+        updateTableName={updateTableName}
       >
         {tab.tabname}
       </TabPanel>

@@ -1,7 +1,15 @@
 import React from "react";
 import { Box, Typography, TextField } from "@mui/material";
 
-const TabPanel = ({ children, value, index, rows, changeHandler }) => {
+const TabPanel = ({
+  children,
+  value,
+  index,
+  rows,
+  header,
+  changeHandler,
+  updateTableName,
+}) => {
   const inputRows = rows.map((row, ind) => {
     return (
       <Box
@@ -43,7 +51,9 @@ const TabPanel = ({ children, value, index, rows, changeHandler }) => {
           <TextField
             label="Table Header (optional)"
             variant="filled"
+            value={header}
             sx={{ width: "50%", alignSelf: "center" }}
+            onChange={(e) => updateTableName(e.target.value, index)}
           />
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             {inputRows}
