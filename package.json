@@ -2,7 +2,7 @@
   "name": "size-guide-automation-new",
   "version": "0.1.0",
   "private": false,
-  "homepage": "https://brandodo.github.io",
+  "homepage": "https://brandodo.github.io/size-guide-automation",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
