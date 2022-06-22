@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, TextField, Button, Tab, Tabs } from "@mui/material";
 import TabPanel from "./TabPanel";
 
-const CategoryTabs = ({ tabs, setTabs }) => {
+const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
   const [currentTab, setCurrentTab] = useState(0);
 
   const tabInput = tabs.map((tab, index) => {
@@ -42,6 +42,9 @@ const CategoryTabs = ({ tabs, setTabs }) => {
   const addRow = (tabIndex) => {
     const temp = [...tabs];
     temp[tabIndex].rows.push(["S", "1", "2", "3"]);
+    french
+      ? temp[tabIndex].inches.push(["Poitrine (Pouces)", "Taille (Pouces)"])
+      : temp[tabIndex].inches.push(["Chest (Inches)", "Waist (Inches)"]);
 
     setTabs(temp);
   };
@@ -49,13 +52,17 @@ const CategoryTabs = ({ tabs, setTabs }) => {
   const removeRow = (tabIndex) => {
     const temp = [...tabs];
     temp[tabIndex].rows.pop();
+    temp[tabIndex].inches.pop();
 
     setTabs(temp);
   };
 
-  const updateRows = (input, tabIndex, rowIndex) => {
+  const updateRows = (input, inchInput, tabIndex, rowIndex) => {
     const temp = [...tabs];
-    temp[tabIndex].rows[rowIndex] = input.split(",");
+    if (input || input === "") temp[tabIndex].rows[rowIndex] = input.split(",");
+
+    if (inchInput || inchInput === "")
+      temp[tabIndex].inches[rowIndex] = inchInput.split(",");
 
     setTabs(temp);
   };
@@ -74,7 +81,9 @@ const CategoryTabs = ({ tabs, setTabs }) => {
         value={currentTab}
         index={index}
         rows={tab.rows}
+        inches={tab.inches}
         header={tab.header ? tab.header : ""}
+        convert={convert}
         changeHandler={updateRows}
         updateTableName={updateTableName}
         addRow={addRow}
@@ -89,16 +98,42 @@ const CategoryTabs = ({ tabs, setTabs }) => {
     const temp = [...tabs];
     const tempLen = temp.length;
 
-    temp.push({
-      tabname: `TAB ${tempLen + 1}`,
-      rows: [
-        ["Alpha", "US", "UK", "EU"],
-        ["S", "2", "4", "1"],
-        ["M", "3", "6", "2"],
-        ["L", "4", "8", "3"],
-        ["XL", "5", "10", "4"],
-      ],
-    });
+    french
+      ? temp.push({
+          tabname: `TAB ${tempLen + 1}`,
+          rows: [
+            ["Taille", "US", "UK", "EU"],
+            ["S", "2", "4", "1"],
+            ["M", "3", "6", "2"],
+            ["L", "4", "8", "3"],
+            ["XL", "5", "10", "4"],
+          ],
+          inches: [
+            ["Poitrine (Pouces)", "Taille (Pouces)"],
+            ["Poitrine (Pouces)", "Taille (Pouces)"],
+            ["Poitrine (Pouces)", "Taille (Pouces)"],
+            ["Poitrine (Pouces)", "Taille (Pouces)"],
+            ["Poitrine (Pouces)", "Taille (Pouces)"],
+          ],
+        })
+      : temp.push({
+          tabname: `TAB ${tempLen + 1}`,
+          rows: [
+            ["Alpha", "US", "UK", "EU"],
+            ["S", "2", "4", "1"],
+            ["M", "3", "6", "2"],
+            ["L", "4", "8", "3"],
+            ["XL", "5", "10", "4"],
+          ],
+          inches: [
+            ["Chest(Inches)", "Waist(Inches)"],
+            ["Chest(Inches)", "Waist(Inches)"],
+            ["Chest(Inches)", "Waist(Inches)"],
+            ["Chest(Inches)", "Waist(Inches)"],
+            ["Chest(Inches)", "Waist(Inches)"],
+          ],
+        });
+
     setTabs(temp);
   };
 

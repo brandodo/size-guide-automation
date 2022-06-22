@@ -1,10 +1,52 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Box, Button } from "@mui/material";
 
-const Actions = ({ toggle, header, subHeader, tabs, convert }) => {
+const Actions = ({ toggle, header, subHeader, tabs, convert, french }) => {
   const buttonStyle = { height: 40, width: "35%" };
-  const htmlHeader = toggle
-    ? `<head>
+
+  const clickHandler = (action) => {
+    const newTable = tabs.map((tab) => {
+      const newRows = tab.rows.map((row, ind) => {
+        return convert
+          ? tab.inches[ind].every((val) => val === "")
+            ? row
+            : row.concat(tab.inches[ind])
+          : row;
+      });
+
+      const centRows = tab.rows.map((row, ind) => {
+        return convert
+          ? tab.inches[ind].every((val) => val === "")
+            ? row
+            : row.concat(
+                tab.inches[ind].map((inch) => {
+                  const tempArr = inch.split("-");
+                  const tempConv = tempArr.map((val) => {
+                    if (val == parseInt(val)) {
+                      return (parseInt(val) * 2.54).toFixed(1);
+                    } else {
+                      return val;
+                    }
+                  });
+
+                  const newArr = tempConv.join("-");
+
+                  return newArr;
+                })
+              )
+          : row;
+      });
+
+      return {
+        tabname: tab.tabname,
+        rows: newRows,
+        rowsCentimetres: centRows,
+        header: tab.header ? tab.header : "",
+      };
+    });
+
+    const htmlHeader = toggle
+      ? `<head>
   <meta charset="utf-8" />
   <meta
     name="viewport"
@@ -23,7 +65,7 @@ const Actions = ({ toggle, header, subHeader, tabs, convert }) => {
     rel="stylesheet"
     href="https://content-edit-assets.s3.amazonaws.com/bay/editorial/size-guide/v3/bay-size-guide-template-v2-0000-00-00-main-3.0.0.css"
   />`
-    : `<head>
+      : `<head>
   <meta charset="utf-8" />
   <meta
     name="viewport"
@@ -49,43 +91,43 @@ const Actions = ({ toggle, header, subHeader, tabs, convert }) => {
   href="https://content.hbc.com/chad/bay/editorial/000-0000-00-00-size-guide-template-v2/bay-size-guide-template-v2-0000-00-00-main-2.0.1.css"
 />`;
 
-  const headerText = `<section class="section__size-guide-text">
+    const headerText = `<section class="section__size-guide-text">
     <div class="centered-text">
       <h3>${header}</h3>
       <h2>${subHeader}</h2>
     </div>
   </section>`;
 
-  const categoryTabs = `<div class="size-guide__tabs--header-left">${tabs
-    .map((tab, index) => {
-      if (index === 0) {
-        return `\n          <a href="#" class="size-guide__tabs--selected">
+    const categoryTabs = `<div class="size-guide__tabs--header-left">${newTable
+      .map((tab, index) => {
+        if (index === 0) {
+          return `\n          <a href="#" class="size-guide__tabs--selected">
             <span>${tab.tabname}</span>
          </a>`;
-      }
+        }
 
-      return `\n         <a href="#">
+        return `\n         <a href="#">
            <!-- comment the line below if tab is not needed -->
            <span>${tab.tabname}</span>
          </a>`;
-    })
-    .join("")}\n        </div>`;
+      })
+      .join("")}\n        </div>`;
 
-  const conversion = convert
-    ? `<div class="size-guide__tabs--header-right">
+    const conversion = convert
+      ? `<div class="size-guide__tabs--header-right">
           <a href="#" class="size-guide__tabs--inches size-guide__tabs--selected">
             <!-- comment the line below if IN/CM conversions is not needed -->
-            <span>IN</span>
+            <span>${french ? "PO" : "IN"}</span>
           </a>
           <a href="#" class="size-guide__tabs--centimiters">
             <!-- comment the line below if IN/CM conversions is not needed -->
             <span>CM</span>
           </a>
         </div>`
-    : `<div class="size-guide__tabs--header-right">
+      : `<div class="size-guide__tabs--header-right">
           <a href="#" class="size-guide__tabs--inches size-guide__tabs--selected">
             <!-- comment the line below if IN/CM conversions is not needed -->
-            <!-- <span>IN</span> -->
+            <!-- <span>${french ? "PO" : "IN"}</span> -->
           </a>
           <a href="#" class="size-guide__tabs--centimiters">
             <!-- comment the line below if IN/CM conversions is not needed -->
@@ -93,9 +135,9 @@ const Actions = ({ toggle, header, subHeader, tabs, convert }) => {
           </a>
         </div>`;
 
-  const tableContent = `<!-- TABLE CONTENT -->
+    const tableContent = `<!-- TABLE CONTENT -->
       <div class="size-guide__tabs--content">
-  ${tabs
+  ${newTable
     .map((tab, index) => {
       return `
         <!-- TAB ${index + 1} INCHES -->
@@ -145,25 +187,24 @@ const Actions = ({ toggle, header, subHeader, tabs, convert }) => {
           }
           <div class="table-block">
             <!-- START STICKY HEADER -->
-            ${tab.rows
+            ${tab.rowsCentimetres
               .map((row, ind) => {
                 return ind === 0
                   ? `<div class="size-guide__table--header select">${row
-                      .map(
-                        (val) => `
-              <div>${
-                val == parseInt(val) ? (parseInt(val) * 2.54).toFixed(2) : val
-              }</div>`
-                      )
+                      .map((val) => {
+                        const inchReg = french
+                          ? new RegExp(/po$|po.$|pouces/, "gmi")
+                          : new RegExp(/in$|in.$|inches/, "gmi");
+                        return `
+              <div>${val.replace(inchReg, "CM")}</div>`;
+                      })
                       .join("")}
             </div>`
                   : `
             <div class="size-guide__table--row">${row
               .map(
                 (val) => `
-              <div>${
-                val == parseInt(val) ? (parseInt(val) * 2.54).toFixed(2) : val
-              }</div>`
+              <div>${val}</div>`
               )
               .join("")}
             </div>`;
@@ -178,25 +219,7 @@ const Actions = ({ toggle, header, subHeader, tabs, convert }) => {
       </div>
       <!-- END TABLE CONTENT -->`;
 
-  const preview = () => {
-    const getText = fullCode;
-    const newElement = document.createElement("a");
-    const file = new Blob([getText], { type: "text/html" });
-    newElement.href = URL.createObjectURL(file);
-    newElement.target = "_blank";
-    newElement.click();
-  };
-
-  const download = () => {
-    const getText = fullCode;
-    const newElement = document.createElement("a");
-    const file = new Blob([getText], { type: "text/html" });
-    newElement.href = URL.createObjectURL(file);
-    newElement.download = "size-guide.html";
-    newElement.click();
-  };
-
-  const fullCode = `${htmlHeader}
+    const fullCode = `${htmlHeader}
 
   <div id="dsg-editorial" class="dsg-editorial dsg-en">
     ${headerText}
@@ -219,6 +242,17 @@ const Actions = ({ toggle, header, subHeader, tabs, convert }) => {
   <!-- END #dsg-editorial -->
   
   <script src="https://content.hbc.com/chad/bay/editorial/000-0000-00-00-size-guide-template-v2/bay-size-guide-template-v2-0000-00-00-main-2.0.1.js"></script>`;
+
+    const getText = fullCode;
+    const newElement = document.createElement("a");
+    const file = new Blob([getText], { type: "text/html" });
+    newElement.href = URL.createObjectURL(file);
+    action === "preview"
+      ? (newElement.target = "_blank")
+      : (newElement.download = "size-guide.html");
+    newElement.click();
+  };
+
   return (
     <Box
       sx={{
@@ -234,7 +268,7 @@ const Actions = ({ toggle, header, subHeader, tabs, convert }) => {
         variant="outlined"
         size="small"
         sx={buttonStyle}
-        onClick={() => preview()}
+        onClick={() => clickHandler("preview")}
       >
         Preview
       </Button>
@@ -242,7 +276,7 @@ const Actions = ({ toggle, header, subHeader, tabs, convert }) => {
         variant="contained"
         size="small"
         sx={buttonStyle}
-        onClick={() => download()}
+        onClick={() => clickHandler("download")}
       >
         Download HTML
       </Button>

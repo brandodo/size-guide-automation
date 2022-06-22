@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography, ToggleButton } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 
-const TabToggle = ({ convert, setConvert }) => {
+const SettingToggle = ({ children, toggle, setToggle }) => {
   return (
     <Box
       component="div"
@@ -13,17 +13,17 @@ const TabToggle = ({ convert, setConvert }) => {
         padding: "10px 0",
       }}
     >
-      <Typography>CM Conversion?</Typography>
+      <Typography>{children}</Typography>
       <ToggleButton
         value="check"
-        selected={convert}
-        onClick={() => setConvert(!convert)}
-        sx={{ width: 10, height: 10, border: "2px solid black"}}
+        selected={toggle}
+        onClick={() => setToggle(!toggle)}
+        sx={{ width: 10, height: 10, border: "2px solid black" }}
       >
-        {convert && <CheckIcon />}
+        {toggle && <CheckIcon />}
       </ToggleButton>
     </Box>
   );
 };
 
-export default TabToggle;
+export default SettingToggle;

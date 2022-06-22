@@ -8,6 +8,7 @@ const App = () => {
   const [subHeader, setSubHeader] = useState("BRAND NAME");
   const [toggle, setToggle] = useState(false);
   const [convert, setConvert] = useState(false);
+  const [french, setFrench] = useState(false);
   const [tabs, setTabs] = useState([
     {
       tabname: "TAB 1",
@@ -17,6 +18,33 @@ const App = () => {
         ["M", "3", "6", "2"],
         ["L", "4", "8", "3"],
         ["XL", "5", "10", "4"],
+      ],
+      inches: [
+        ["Chest (Inches)", "Waist (Inches)"],
+        ["Chest (Inches)", "Waist (Inches)"],
+        ["Chest (Inches)", "Waist (Inches)"],
+        ["Chest (Inches)", "Waist (Inches)"],
+        ["Chest (Inches)", "Waist (Inches)"],
+      ],
+    },
+  ]);
+
+  const [tabsFR, setTabsFR] = useState([
+    {
+      tabname: "TAB 1",
+      rows: [
+        ["Taille", "US", "UK", "EU"],
+        ["S", "2", "4", "1"],
+        ["M", "3", "6", "2"],
+        ["L", "4", "8", "3"],
+        ["XL", "5", "10", "4"],
+      ],
+      inches: [
+        ["Poitrine (Pouces)", "Taille (Pouces)"],
+        ["Poitrine (Pouces)", "Taille (Pouces)"],
+        ["Poitrine (Pouces)", "Taille (Pouces)"],
+        ["Poitrine (Pouces)", "Taille (Pouces)"],
+        ["Poitrine (Pouces)", "Taille (Pouces)"],
       ],
     },
   ]);
@@ -55,18 +83,21 @@ const App = () => {
         subHeader={subHeader}
         toggle={toggle}
         convert={convert}
-        tabs={tabs}
+        french={french}
+        tabs={french ? tabsFR : tabs}
         setHeader={setHeader}
         setSubHeader={setSubHeader}
         setToggle={setToggle}
         setConvert={setConvert}
-        setTabs={setTabs}
+        setFrench={setFrench}
+        setTabs={french ? setTabsFR : setTabs}
       />
       <Actions
         toggle={toggle}
         header={header}
         subHeader={subHeader}
-        tabs={tabs}
+        french={french}
+        tabs={french ? tabsFR : tabs}
         convert={convert}
       />
     </Box>

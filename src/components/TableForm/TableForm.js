@@ -1,21 +1,22 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import HeaderInput from "./HeaderInput";
-import ColumnToggle from "./ColumnToggle";
 import CategoryTabs from "./CategoryTabs";
-import TabToggle from "./TabToggle";
+import SettingToggle from "./SettingToggle";
 
 const TableForm = ({
   header,
   subHeader,
   toggle,
   convert,
+  french,
   tabs,
   setHeader,
   setSubHeader,
   setToggle,
   setConvert,
   setTabs,
+  setFrench,
 }) => {
   return (
     <Box
@@ -36,8 +37,15 @@ const TableForm = ({
           margin: "10px 0",
         }}
       >
-        <ColumnToggle toggle={toggle} setToggle={setToggle} />
-        <TabToggle convert={convert} setConvert={setConvert} />
+        <SettingToggle toggle={french} setToggle={setFrench}>
+          French?
+        </SettingToggle>
+        <SettingToggle toggle={toggle} setToggle={setToggle}>
+          More than 6 columns?
+        </SettingToggle>
+        <SettingToggle toggle={convert} setToggle={setConvert}>
+          {french ? "PO/CM Required?" : "IN/CM Required?"}
+        </SettingToggle>
       </Box>
       <HeaderInput
         header={header}
@@ -63,7 +71,12 @@ const TableForm = ({
         (optional), and modify the table data.
       </Typography>
 
-      <CategoryTabs tabs={tabs} setTabs={setTabs} />
+      <CategoryTabs
+        tabs={tabs}
+        setTabs={setTabs}
+        convert={convert}
+        french={french}
+      />
     </Box>
   );
 };
