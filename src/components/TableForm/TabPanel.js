@@ -76,7 +76,8 @@ const TabPanel = ({
             comma (,). For example, to add a 5th column to Row 1, you would
             input "Alpha,US,UK,EU,CH". If you are adding inch measurements, the
             same rules will apply, and these columns will always appear after
-            the other sizes.
+            the other sizes. When specifying ranges, please use a dash, so for
+            example "23-26".
           </Typography>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Button variant="contained" onClick={() => addRow(index)}>

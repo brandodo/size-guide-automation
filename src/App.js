@@ -23,10 +23,10 @@ const App = () => {
       ],
       inches: [
         ["Chest (Inches)", "Waist (Inches)"],
-        ["Chest (Inches)", "Waist (Inches)"],
-        ["Chest (Inches)", "Waist (Inches)"],
-        ["Chest (Inches)", "Waist (Inches)"],
-        ["Chest (Inches)", "Waist (Inches)"],
+        ["20-22", "21"],
+        ["23-25", "22"],
+        ["26-28", "23"],
+        ["29-31", "24"],
       ],
     },
   ]);
@@ -43,10 +43,10 @@ const App = () => {
       ],
       inches: [
         ["Poitrine (Pouces)", "Taille (Pouces)"],
-        ["Poitrine (Pouces)", "Taille (Pouces)"],
-        ["Poitrine (Pouces)", "Taille (Pouces)"],
-        ["Poitrine (Pouces)", "Taille (Pouces)"],
-        ["Poitrine (Pouces)", "Taille (Pouces)"],
+        ["20-22", "21"],
+        ["23-25", "22"],
+        ["26-28", "23"],
+        ["29-31", "24"],
       ],
     },
   ]);

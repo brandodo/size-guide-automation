@@ -43,8 +43,8 @@ const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
     const temp = [...tabs];
     temp[tabIndex].rows.push(["S", "1", "2", "3"]);
     french
-      ? temp[tabIndex].inches.push(["Poitrine (Pouces)", "Taille (Pouces)"])
-      : temp[tabIndex].inches.push(["Chest (Inches)", "Waist (Inches)"]);
+      ? temp[tabIndex].inches.push(["20-22", "21"])
+      : temp[tabIndex].inches.push(["20-22", "21"]);
 
     setTabs(temp);
   };
@@ -110,10 +110,10 @@ const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
           ],
           inches: [
             ["Poitrine (Pouces)", "Taille (Pouces)"],
-            ["Poitrine (Pouces)", "Taille (Pouces)"],
-            ["Poitrine (Pouces)", "Taille (Pouces)"],
-            ["Poitrine (Pouces)", "Taille (Pouces)"],
-            ["Poitrine (Pouces)", "Taille (Pouces)"],
+            ["20-22", "21"],
+            ["23-25", "22"],
+            ["26-28", "23"],
+            ["29-31", "24"],
           ],
         })
       : temp.push({
@@ -127,10 +127,10 @@ const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
           ],
           inches: [
             ["Chest(Inches)", "Waist(Inches)"],
-            ["Chest(Inches)", "Waist(Inches)"],
-            ["Chest(Inches)", "Waist(Inches)"],
-            ["Chest(Inches)", "Waist(Inches)"],
-            ["Chest(Inches)", "Waist(Inches)"],
+            ["20-22", "21"],
+            ["23-25", "22"],
+            ["26-28", "23"],
+            ["29-31", "24"],
           ],
         });
 
