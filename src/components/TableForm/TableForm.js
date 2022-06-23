@@ -5,12 +5,14 @@ import CategoryTabs from "./CategoryTabs";
 import SettingToggle from "./SettingToggle";
 
 const TableForm = ({
+  pim,
   header,
   subHeader,
   toggle,
   convert,
   french,
   tabs,
+  setPim,
   setHeader,
   setSubHeader,
   setToggle,
@@ -48,8 +50,10 @@ const TableForm = ({
         </SettingToggle>
       </Box>
       <HeaderInput
+        pim={pim}
         header={header}
         subHeader={subHeader}
+        setPim={setPim}
         setHeader={setHeader}
         setSubHeader={setSubHeader}
       />

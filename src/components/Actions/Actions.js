@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
 
-const Actions = ({ toggle, header, subHeader, tabs, convert, french }) => {
-  const buttonStyle = { height: 40, width: "35%" };
+const Actions = ({ pim, toggle, header, subHeader, tabs, convert, french }) => {
+  const buttonStyle = { height: 40, width: "25%" };
 
   const clickHandler = (action) => {
     const newTable = tabs.map((tab) => {
@@ -154,7 +154,11 @@ const Actions = ({ toggle, header, subHeader, tabs, convert, french }) => {
       ${tab.rows
         .map((row, ind) => {
           return ind === 0
-            ? `      <div class="size-guide__table--header select">${row
+            ? `      <div ${
+                toggle
+                  ? 'class="size-guide__table--header select" style="text-decoration: underline"'
+                  : 'class="size-guide__table--header select"'
+              }>${row
                 .map(
                   (val) => `
               <div>${val}</div>`
@@ -190,11 +194,15 @@ const Actions = ({ toggle, header, subHeader, tabs, convert, french }) => {
             ${tab.rowsCentimetres
               .map((row, ind) => {
                 return ind === 0
-                  ? `<div class="size-guide__table--header select">${row
+                  ? `<div ${
+                      toggle
+                        ? 'class="size-guide__table--header select" style="text-decoration: underline"'
+                        : 'class="size-guide__table--header select"'
+                    }>${row
                       .map((val) => {
                         const inchReg = french
-                          ? new RegExp(/po$|po.$|pouces/, "gmi")
-                          : new RegExp(/in$|in.$|inches/, "gmi");
+                          ? new RegExp(/\bpo\b|\bpouces\b/, "gmi")
+                          : new RegExp(/\bin\b|\binches\b/, "gmi");
                         return `
               <div>${val.replace(inchReg, "CM")}</div>`;
                       })
@@ -241,7 +249,8 @@ const Actions = ({ toggle, header, subHeader, tabs, convert, french }) => {
   </div>
   <!-- END #dsg-editorial -->
   
-  <script src="https://content.hbc.com/chad/bay/editorial/000-0000-00-00-size-guide-template-v2/bay-size-guide-template-v2-0000-00-00-main-2.0.1.js"></script>`;
+  <script src="https://content.hbc.com/chad/bay/editorial/000-0000-00-00-size-guide-template-v2/bay-size-guide-template-v2-0000-00-00-main-2.0.1.js"></script>
+${toggle ? "</head>" : ""}`;
 
     const getText = fullCode;
     const newElement = document.createElement("a");
@@ -249,7 +258,7 @@ const Actions = ({ toggle, header, subHeader, tabs, convert, french }) => {
     newElement.href = URL.createObjectURL(file);
     action === "preview"
       ? (newElement.target = "_blank")
-      : (newElement.download = "size-guide.html");
+      : (newElement.download = french ? `${pim}-FR` : `${pim}-EN`);
     newElement.click();
   };
 
@@ -258,7 +267,6 @@ const Actions = ({ toggle, header, subHeader, tabs, convert, french }) => {
       sx={{
         p: "10px",
         gap: 2,
-
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

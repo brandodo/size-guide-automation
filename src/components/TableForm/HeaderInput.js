@@ -2,7 +2,14 @@ import React from "react";
 import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 
-const HeaderInput = ({ header, subHeader, setHeader, setSubHeader }) => {
+const HeaderInput = ({
+  pim,
+  header,
+  subHeader,
+  setPim,
+  setHeader,
+  setSubHeader,
+}) => {
   const textStyle = {
     width: "50%",
   };
@@ -18,6 +25,15 @@ const HeaderInput = ({ header, subHeader, setHeader, setSubHeader }) => {
         m: "15px 0",
       }}
     >
+      <TextField
+        required
+        id="filled-basic"
+        label="PIM Attribute Name"
+        variant="filled"
+        value={pim}
+        sx={textStyle}
+        onChange={(e) => setPim(e.target.value)}
+      />
       <TextField
         required
         id="filled-basic"

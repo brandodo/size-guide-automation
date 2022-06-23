@@ -15,39 +15,27 @@ const TabPanel = ({
 }) => {
   const inputRows = rows.map((row, ind) => {
     return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          gap: 2,
-        }}
-        key={`row-${ind}`}
-      >
-        <Typography>{`Row ${ind + 1} `}</Typography>
-        <TextField
-          value={row.join(",")}
-          sx={{ width: "50%" }}
-          onChange={(e) => changeHandler(e.target.value, false, index, ind)}
-        />
-      </Box>
+      <TextField
+        value={row.join(",")}
+        sx={{ width: "60%" }}
+        label={`Row ${ind + 1}`}
+        onChange={(e) => changeHandler(e.target.value, false, index, ind)}
+      />
     );
   });
 
   const inchRows = inches.map((inch, ind) => {
     return (
-      <Box>
-        <TextField
-          value={inch.join(",")}
-          sx={{ width: "50%" }}
-          onChange={(e) => changeHandler(false, e.target.value, index, ind)}
-        />
-      </Box>
+      <TextField
+        value={inch.join(",")}
+        sx={{ width: "60%" }}
+        label={`Row ${ind + 1}`}
+        onChange={(e) => changeHandler(false, e.target.value, index, ind)}
+      />
     );
   });
 
-  const rowWidth = convert ? "70%" : "100%";
+  const rowWidth = convert ? "50%" : "100%";
 
   return (
     <div
@@ -86,9 +74,9 @@ const TabPanel = ({
             You may use the buttons below to add/remove rows, new columns are
             added by including new values in each row and separating them with a
             comma (,). For example, to add a 5th column to Row 1, you would
-            input "Alpha,US,UK,EU,CH". When adding a new column, please pay
-            careful attention to the order of the values, as this will determine
-            how/where they will appear in the resulting table.
+            input "Alpha,US,UK,EU,CH". If you are adding inch measurements, the
+            same rules will apply, and these columns will always appear after
+            the other sizes.
           </Typography>
           <Box sx={{ display: "flex", justifyContent: "center" }}>
             <Button variant="contained" onClick={() => addRow(index)}>
@@ -98,26 +86,42 @@ const TabPanel = ({
               Remove Row
             </Button>
           </Box>
-          <Box sx={{ display: "flex" }}>
+          <Box sx={{ display: "flex", gap: 2 }}>
             <Box
               sx={{
                 display: "flex",
+                alignItems: convert ? "flex-end" : "center",
                 flexDirection: "column",
                 gap: 2,
                 width: rowWidth,
               }}
             >
+              <Box
+                sx={{ display: "flex", justifyContent: "center", width: "50%" }}
+              >
+                <Typography variant="h4">Sizes</Typography>
+              </Box>
               {inputRows}
             </Box>
             {convert && (
               <Box
                 sx={{
                   display: "flex",
+                  alignItems: "flex-start",
                   flexDirection: "column",
                   gap: 2,
-                  width: "30%",
+                  width: "50%",
                 }}
               >
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "50%",
+                  }}
+                >
+                  <Typography variant="h4">Inches</Typography>
+                </Box>
                 {inchRows}
               </Box>
             )}

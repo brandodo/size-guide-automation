@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import TableForm from "./components/TableForm/TableForm";
 import Actions from "./components/Actions/Actions";
+import EditAlert from "./components/EditAlert/EditAlert";
 
 const App = () => {
+  const [pim, setPim] = useState("");
   const [header, setHeader] = useState("Size Guide");
   const [subHeader, setSubHeader] = useState("BRAND NAME");
   const [toggle, setToggle] = useState(false);
@@ -73,18 +75,19 @@ const App = () => {
           boxShadow: "3px 3px 5px black",
         }}
       >
-        Use this form to generate your brand specific size guides by filling out
-        the prompts below. Once you are satisfied with the data, you can preview
-        the final table or download the HTML by clicking either buttons at the
-        very end of this form.
+        Use this form to generate your brand specific size guides by following
+        the prompts below. You may use the toggles below based on your specific
+        requirements.
       </Typography>
       <TableForm
+        pim={pim}
         header={header}
         subHeader={subHeader}
         toggle={toggle}
         convert={convert}
         french={french}
         tabs={french ? tabsFR : tabs}
+        setPim={setPim}
         setHeader={setHeader}
         setSubHeader={setSubHeader}
         setToggle={setToggle}
@@ -93,6 +96,7 @@ const App = () => {
         setTabs={french ? setTabsFR : setTabs}
       />
       <Actions
+        pim={pim}
         toggle={toggle}
         header={header}
         subHeader={subHeader}
@@ -100,6 +104,7 @@ const App = () => {
         tabs={french ? tabsFR : tabs}
         convert={convert}
       />
+      <EditAlert toggle={french} />
     </Box>
   );
 };
