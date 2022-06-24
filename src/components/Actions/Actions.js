@@ -22,8 +22,8 @@ const Actions = ({ pim, toggle, header, subHeader, tabs, convert, french }) => {
                 tab.inches[ind].map((inch) => {
                   const tempArr = inch.split("-");
                   const tempConv = tempArr.map((val) => {
-                    if (val == parseInt(val)) {
-                      return (parseInt(val) * 2.54).toFixed(1);
+                    if (val == parseFloat(val)) {
+                      return (parseFloat(val) * 2.54).toFixed(1);
                     } else {
                       return val;
                     }
