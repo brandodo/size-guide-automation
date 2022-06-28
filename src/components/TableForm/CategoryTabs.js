@@ -21,51 +21,25 @@ const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
           id="filled-basic"
           label={`tab-${index + 1} name`}
           variant="filled"
-          value={tab.tabname}
+          value={french ? tab.tabnameFR : tab.tabnameEN}
           sx={{ width: "70%", margin: 2 }}
           onChange={(e) => {
             const temp = [...tabs];
-            temp[index].tabname = e.target.value;
+            french
+              ? (temp[index].tabnameFR = e.target.value)
+              : (temp[index].tabnameEN = e.target.value);
 
             setTabs(temp);
           }}
         />
         <Tab
-          label={tab.tabname}
+          label={french ? tab.tabnameFR : tab.tabnameEN}
           value={index}
           onClick={() => setCurrentTab(index)}
         />
       </Box>
     );
   });
-
-  const addRow = (tabIndex) => {
-    const temp = [...tabs];
-    temp[tabIndex].rows.push(["S", "1", "2", "3"]);
-    french
-      ? temp[tabIndex].inches.push(["20-22", "21"])
-      : temp[tabIndex].inches.push(["20-22", "21"]);
-
-    setTabs(temp);
-  };
-
-  const removeRow = (tabIndex) => {
-    const temp = [...tabs];
-    temp[tabIndex].rows.pop();
-    temp[tabIndex].inches.pop();
-
-    setTabs(temp);
-  };
-
-  const updateRows = (input, inchInput, tabIndex, rowIndex) => {
-    const temp = [...tabs];
-    if (input || input === "") temp[tabIndex].rows[rowIndex] = input.split(",");
-
-    if (inchInput || inchInput === "")
-      temp[tabIndex].inches[rowIndex] = inchInput.split(",");
-
-    setTabs(temp);
-  };
 
   const updateTableName = (input, index) => {
     const temp = [...tabs];
@@ -84,12 +58,9 @@ const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
         inches={tab.inches}
         header={tab.header ? tab.header : ""}
         convert={convert}
-        changeHandler={updateRows}
         updateTableName={updateTableName}
-        addRow={addRow}
-        removeRow={removeRow}
       >
-        {tab.tabname}
+        {french ? tab.tabnameFR : tab.tabnameEN}
       </TabPanel>
     );
   });
@@ -98,41 +69,10 @@ const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
     const temp = [...tabs];
     const tempLen = temp.length;
 
-    french
-      ? temp.push({
-          tabname: `TAB ${tempLen + 1}`,
-          rows: [
-            ["Taille", "US", "UK", "EU"],
-            ["S", "2", "4", "1"],
-            ["M", "3", "6", "2"],
-            ["L", "4", "8", "3"],
-            ["XL", "5", "10", "4"],
-          ],
-          inches: [
-            ["Poitrine (Pouces)", "Taille (Pouces)"],
-            ["20-22", "21"],
-            ["23-25", "22"],
-            ["26-28", "23"],
-            ["29-31", "24"],
-          ],
-        })
-      : temp.push({
-          tabname: `TAB ${tempLen + 1}`,
-          rows: [
-            ["Alpha", "US", "UK", "EU"],
-            ["S", "2", "4", "1"],
-            ["M", "3", "6", "2"],
-            ["L", "4", "8", "3"],
-            ["XL", "5", "10", "4"],
-          ],
-          inches: [
-            ["Chest(Inches)", "Waist(Inches)"],
-            ["20-22", "21"],
-            ["23-25", "22"],
-            ["26-28", "23"],
-            ["29-31", "24"],
-          ],
-        });
+    temp.push({
+      tabnameFR: `TAB ${tempLen + 1}`,
+      tabnameEN: `TAB ${tempLen + 1}`,
+    });
 
     setTabs(temp);
   };

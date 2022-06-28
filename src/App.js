@@ -13,7 +13,10 @@ const App = () => {
   const [french, setFrench] = useState(false);
   const [tabs, setTabs] = useState([
     {
-      tabname: "TAB 1",
+      tabnameEN: "TAB 1",
+      tabnameFR: "TAB 1",
+      rowsInches: [[]],
+      rowsCenti: [[]],
       rows: [
         ["Alpha", "US", "UK", "EU"],
         ["S", "2", "4", "1"],
@@ -86,14 +89,14 @@ const App = () => {
         toggle={toggle}
         convert={convert}
         french={french}
-        tabs={french ? tabsFR : tabs}
+        tabs={tabs}
         setPim={setPim}
         setHeader={setHeader}
         setSubHeader={setSubHeader}
         setToggle={setToggle}
         setConvert={setConvert}
         setFrench={setFrench}
-        setTabs={french ? setTabsFR : setTabs}
+        setTabs={setTabs}
       />
       <Actions
         pim={pim}
