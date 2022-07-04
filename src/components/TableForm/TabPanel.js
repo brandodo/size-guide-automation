@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Typography, TextField, Button } from "@mui/material";
+import React from "react";
+import { Box, TextField, Button } from "@mui/material";
 
 const TabPanel = ({
   value,
@@ -38,7 +38,11 @@ const TabPanel = ({
             multiline
             value={inches}
             onChange={(e) => updateInches(e.target.value, index, tableIndex)}
-            placeholder="Copy/paste your table here..."
+            placeholder={
+              convert
+                ? "Copy/paste your table (WITH INCHES) here..."
+                : "Copy/paste your table here..."
+            }
             sx={{ width: "50%" }}
           />
           {convert && (
@@ -46,7 +50,7 @@ const TabPanel = ({
               multiline
               value={centi}
               onChange={(e) => updateCenti(e.target.value, index, tableIndex)}
-              placeholder="Copy/paste your table here..."
+              placeholder="Copy/paste your table (WITH CENTIMETRES) here..."
               sx={{ width: "50%" }}
             />
           )}
