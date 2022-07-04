@@ -19,6 +19,7 @@ const TabPanel = ({
 
     return (
       <Box
+        key={`table-${index + 1}`}
         sx={{
           display: "flex",
           flexDirection: "column",

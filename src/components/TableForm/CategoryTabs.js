@@ -71,7 +71,6 @@ const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
   const updateInches = (input, tabIndex, tableIndex) => {
     const temp = [...tabs];
     const cells = input.split("\n").map((row) => row.split("\t"));
-    console.log(cells);
 
     temp[tabIndex].tables[tableIndex].rowsInches = cells;
 
@@ -81,7 +80,6 @@ const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
   const updateCenti = (input, tabIndex, tableIndex) => {
     const temp = [...tabs];
     const cells = input.split("\n").map((row) => row.split("\t"));
-    console.log(cells);
 
     temp[tabIndex].tables[tableIndex].rowsCenti = cells;
 
