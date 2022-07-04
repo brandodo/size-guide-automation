@@ -45,6 +45,9 @@ const TableForm = ({
         <SettingToggle toggle={toggle} setToggle={setToggle}>
           More than 6 columns?
         </SettingToggle>
+        <SettingToggle toggle={convert} setToggle={setConvert}>
+          {french ? "PO/CM Required?" : "IN/CM Required?"}
+        </SettingToggle>
       </Box>
       <HeaderInput
         pim={pim}

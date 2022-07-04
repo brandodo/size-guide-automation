@@ -41,10 +41,50 @@ const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
     );
   });
 
-  const updateTableName = (input, index) => {
+  const updateTableName = (input, index, tableIndex) => {
     const temp = [...tabs];
 
-    temp[index].header = input;
+    temp[index].tables[tableIndex].header = input;
+    setTabs(temp);
+  };
+
+  const addTable = (tabIndex) => {
+    const temp = [...tabs];
+
+    temp[tabIndex].tables.push({
+      header: "",
+      rowsInches: [[]],
+      rowsCenti: [[]],
+    });
+
+    setTabs(temp);
+  };
+
+  const removeTable = (tabIndex) => {
+    const temp = [...tabs];
+
+    temp[tabIndex].tables.pop();
+
+    setTabs(temp);
+  };
+
+  const updateInches = (input, tabIndex, tableIndex) => {
+    const temp = [...tabs];
+    const cells = input.split("\n").map((row) => row.split("\t"));
+    console.log(cells);
+
+    temp[tabIndex].tables[tableIndex].rowsInches = cells;
+
+    setTabs(temp);
+  };
+
+  const updateCenti = (input, tabIndex, tableIndex) => {
+    const temp = [...tabs];
+    const cells = input.split("\n").map((row) => row.split("\t"));
+    console.log(cells);
+
+    temp[tabIndex].tables[tableIndex].rowsCenti = cells;
+
     setTabs(temp);
   };
 
@@ -54,10 +94,12 @@ const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
         key={`tabpanel-${index}`}
         value={currentTab}
         index={index}
-        rows={tab.rows}
-        inches={tab.inches}
-        header={tab.header ? tab.header : ""}
         convert={convert}
+        data={tab}
+        addTable={addTable}
+        removeTable={removeTable}
+        updateInches={updateInches}
+        updateCenti={updateCenti}
         updateTableName={updateTableName}
       >
         {french ? tab.tabnameFR : tab.tabnameEN}
@@ -72,6 +114,7 @@ const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
     temp.push({
       tabnameFR: `TAB ${tempLen + 1}`,
       tabnameEN: `TAB ${tempLen + 1}`,
+      tables: [{ header: "", rowsInches: [[]], rowsCenti: [[]] }],
     });
 
     setTabs(temp);

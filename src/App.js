@@ -15,41 +15,12 @@ const App = () => {
     {
       tabnameEN: "TAB 1",
       tabnameFR: "TAB 1",
-      rowsInches: [[]],
-      rowsCenti: [[]],
-      rows: [
-        ["Alpha", "US", "UK", "EU"],
-        ["S", "2", "4", "1"],
-        ["M", "3", "6", "2"],
-        ["L", "4", "8", "3"],
-        ["XL", "5", "10", "4"],
-      ],
-      inches: [
-        ["Chest (Inches)", "Waist (Inches)"],
-        ["20-22", "21"],
-        ["23-25", "22"],
-        ["26-28", "23"],
-        ["29-31", "24"],
-      ],
-    },
-  ]);
-
-  const [tabsFR, setTabsFR] = useState([
-    {
-      tabname: "TAB 1",
-      rows: [
-        ["Taille", "US", "UK", "EU"],
-        ["S", "2", "4", "1"],
-        ["M", "3", "6", "2"],
-        ["L", "4", "8", "3"],
-        ["XL", "5", "10", "4"],
-      ],
-      inches: [
-        ["Poitrine (Pouces)", "Taille (Pouces)"],
-        ["20-22", "21"],
-        ["23-25", "22"],
-        ["26-28", "23"],
-        ["29-31", "24"],
+      tables: [
+        {
+          header: "",
+          rowsInches: [[]],
+          rowsCenti: [[]],
+        },
       ],
     },
   ]);
@@ -104,7 +75,7 @@ const App = () => {
         header={header}
         subHeader={subHeader}
         french={french}
-        tabs={french ? tabsFR : tabs}
+        tabs={tabs}
         convert={convert}
       />
       <EditAlert toggle={french} />

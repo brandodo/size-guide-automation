@@ -5,46 +5,6 @@ const Actions = ({ pim, toggle, header, subHeader, tabs, convert, french }) => {
   const buttonStyle = { height: 40, width: "25%" };
 
   const clickHandler = (action) => {
-    const newTable = tabs.map((tab) => {
-      const newRows = tab.rows.map((row, ind) => {
-        return convert
-          ? tab.inches[ind].every((val) => val === "")
-            ? row
-            : row.concat(tab.inches[ind])
-          : row;
-      });
-
-      const centRows = tab.rows.map((row, ind) => {
-        return convert
-          ? tab.inches[ind].every((val) => val === "")
-            ? row
-            : row.concat(
-                tab.inches[ind].map((inch) => {
-                  const tempArr = inch.split("-");
-                  const tempConv = tempArr.map((val) => {
-                    if (val == parseFloat(val)) {
-                      return (parseFloat(val) * 2.54).toFixed(1);
-                    } else {
-                      return val;
-                    }
-                  });
-
-                  const newArr = tempConv.join("-");
-
-                  return newArr;
-                })
-              )
-          : row;
-      });
-
-      return {
-        tabname: tab.tabname,
-        rows: newRows,
-        rowsCentimetres: centRows,
-        header: tab.header ? tab.header : "",
-      };
-    });
-
     const htmlHeader = toggle
       ? `<head>
   <meta charset="utf-8" />
@@ -98,17 +58,17 @@ const Actions = ({ pim, toggle, header, subHeader, tabs, convert, french }) => {
     </div>
   </section>`;
 
-    const categoryTabs = `<div class="size-guide__tabs--header-left">${newTable
+    const categoryTabs = `<div class="size-guide__tabs--header-left">${tabs
       .map((tab, index) => {
         if (index === 0) {
           return `\n          <a href="#" class="size-guide__tabs--selected">
-            <span>${tab.tabname}</span>
+            <span>${french ? tab.tabnameFR : tab.tabnameEN}</span>
          </a>`;
         }
 
         return `\n         <a href="#">
            <!-- comment the line below if tab is not needed -->
-           <span>${tab.tabname}</span>
+           <span>${french ? tab.tabnameFR : tab.tabnameEN}</span>
          </a>`;
       })
       .join("")}\n        </div>`;
@@ -137,95 +97,97 @@ const Actions = ({ pim, toggle, header, subHeader, tabs, convert, french }) => {
 
     const tableContent = `<!-- TABLE CONTENT -->
       <div class="size-guide__tabs--content">
-  ${newTable
+  ${tabs
     .map((tab, index) => {
       return `
         <!-- TAB ${index + 1} INCHES -->
         <div class="size-guide__table">     
-        ${
-          tab.header
-            ? `  <div class="size-guide__table--header">
-            <div>${tab.header}</div>
-          </div>`
-            : ""
-        }
+        ${tab.tables
+          .map((table) => {
+            return `${
+              table.header
+                ? `  <div class="size-guide__table--header">
+          <div>${table.header}</div>
+        </div>`
+                : ""
+            }
           <div class="table-block">
             <!-- START STICKY HEADER -->
-      ${tab.rows
-        .map((row, ind) => {
-          return ind === 0
-            ? `      <div ${
-                toggle
-                  ? 'class="size-guide__table--header select" style="text-decoration: underline"'
-                  : 'class="size-guide__table--header select"'
-              }>${row
-                .map(
-                  (val) => `
-              <div>${val}</div>`
-                )
-                .join("")}
-            </div>`
-            : `
-            <div class="size-guide__table--row">${row
-              .map(
-                (val) => `
-              <div>${val}</div>`
-              )
-              .join("")}
-            </div>`;
-        })
-        .join("")} 
-          </div>
-          <!-- END STICKY HEADER -->
-        </div>
-        <!-- TAB ${index + 1} INCHES -->
-        
-        <!-- TAB ${index + 1} CENTIMETRES -->
-        <div class="size-guide__table">     
-          ${
-            tab.header
-              ? `<div class="size-guide__table--header">
-            <div>${tab.header}</div>
-          </div>`
-              : ""
-          }
-          <div class="table-block">
-            <!-- START STICKY HEADER -->
-            ${tab.rowsCentimetres
+            ${table.rowsInches
               .map((row, ind) => {
                 return ind === 0
-                  ? `<div ${
+                  ? ` <div ${
                       toggle
                         ? 'class="size-guide__table--header select" style="text-decoration: underline"'
                         : 'class="size-guide__table--header select"'
                     }>${row
-                      .map((val) => {
-                        const inchReg = french
-                          ? new RegExp(/\bpo\b|\bpouces\b/, "gmi")
-                          : new RegExp(/\bin\b|\binches\b/, "gmi");
-                        return `
-              <div>${val.replace(inchReg, "CM")}</div>`;
-                      })
+                      .map(
+                        (val) => `
+              <div>${val}</div>`
+                      )
                       .join("")}
             </div>`
-                  : `
-            <div class="size-guide__table--row">${row
-              .map(
-                (val) => `
+                  : `<div class="size-guide__table--row">${row
+                      .map(
+                        (val) => `
               <div>${val}</div>`
-              )
-              .join("")}
-            </div>`;
+                      )
+                      .join("")}
+                  </div>`;
               })
-              .join("")} 
-          </div>
-          <!-- END STICKY HEADER -->
+              .join("")}
+              </div>
+          <!-- END STICKY HEADER -->`;
+          })
+          .join("")}
+        
         </div>
-        <!-- TAB ${index + 1} CENTIMETRES -->\n`;
-    })
-    .join("")}
-      </div>
+        <!-- TAB ${index + 1} INCHES -->
+        
+        <!-- TAB ${index + 1} CENTIMETRES -->
+        <div class="size-guide__table">
+        ${tab.tables
+          .map((table) => {
+            return `${
+              table.header
+                ? `  <div class="size-guide__table--header">
+          <div>${table.header}</div>
+        </div>`
+                : ""
+            }
+          <div class="table-block">
+            <!-- START STICKY HEADER -->
+            ${table.rowsCenti
+              .map((row, ind) => {
+                return ind === 0
+                  ? ` <div ${
+                      toggle
+                        ? 'class="size-guide__table--header select" style="text-decoration: underline"'
+                        : 'class="size-guide__table--header select"'
+                    }>${row
+                      .map(
+                        (val) => `
+              <div>${val}</div>`
+                      )
+                      .join("")}
+            </div>`
+                  : `<div class="size-guide__table--row">${row
+                      .map((val) => `<div>${val}</div>`)
+                      .join("")}
+                  </div>`;
+              })
+              .join("")}
+              </div>
+          <!-- END STICKY HEADER -->`;
+          })
+          .join("")}
+          
+        </div>
+        <!-- TAB ${index + 1} CENTIMETRES -->
+
       <!-- END TABLE CONTENT -->`;
+    })
+    .join("")}`;
 
     const fullCode = `${htmlHeader}
 
