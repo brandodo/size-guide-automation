@@ -152,7 +152,7 @@ const Actions = ({
           })
           .join("")}
           ${
-            tableGuide
+            tableGuide && tab.measureGuide[0].length > 0
               ? `<section class="section__size-guide-text" id="measuring-guide">
     <div class="centered-text">
       <h2>${french ? "Comment Mesurer" : "How to Measure"}</h2>
@@ -211,7 +211,7 @@ const Actions = ({
           })
           .join("")}
           ${
-            tableGuide
+            tableGuide && tab.measureGuide[0].length > 0
               ? `<section class="section__size-guide-text" id="measuring-guide">
     <div class="centered-text">
       <h2>${french ? "Comment Mesurer" : "How to Measure"}</h2>
