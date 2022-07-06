@@ -155,7 +155,7 @@ const Actions = ({
             tableGuide
               ? `<section class="section__size-guide-text" id="measuring-guide">
     <div class="centered-text">
-      <h2>${french ? "Comment Measurer" : "How to Measure"}</h2>
+      <h2>${french ? "Comment Mesurer" : "How to Measure"}</h2>
     </div>
     ${tab.measureGuide
       .map(
@@ -214,7 +214,7 @@ const Actions = ({
             tableGuide
               ? `<section class="section__size-guide-text" id="measuring-guide">
     <div class="centered-text">
-      <h2>${french ? "Comment Measurer" : "How to Measure"}</h2>
+      <h2>${french ? "Comment Mesurer" : "How to Measure"}</h2>
     </div>
     ${tab.measureGuide
       .map(
@@ -240,7 +240,7 @@ const Actions = ({
       general
         ? `<section class="section__size-guide-text" id="measuring-guide">
     <div class="centered-text">
-      <h2>${french ? "Comment Measurer" : "How to Measure"}</h2>
+      <h2>${french ? "Comment Mesurer" : "How to Measure"}</h2>
     </div>
     ${generalGuide
       .map(
