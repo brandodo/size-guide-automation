@@ -1,16 +1,19 @@
 import React from "react";
-import { Box, TextField, Button } from "@mui/material";
+import { Box, TextField, Button, Typography } from "@mui/material";
+import MeasureGuide from "./MeasureGuide";
 
 const TabPanel = ({
   value,
   index,
   data,
   convert,
+  tableGuide,
   updateTableName,
   addTable,
   removeTable,
   updateInches,
   updateCenti,
+  updateGuide,
 }) => {
   // map tables to header and input field
   const tableInput = data.tables.map((table, tableIndex) => {
@@ -21,10 +24,12 @@ const TabPanel = ({
       <Box
         key={`table-${index + 1}`}
         sx={{
+          width: "100%",
           display: "flex",
           flexDirection: "column",
           gap: 2,
           p: 3,
+          boxSizing: "border-box",
         }}
       >
         <TextField
@@ -34,7 +39,13 @@ const TabPanel = ({
           sx={{ width: "50%", alignSelf: "center" }}
           onChange={(e) => updateTableName(e.target.value, index, tableIndex)}
         />
-        <Box sx={{ display: "flex", justifyContent: "center", gap: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 2,
+          }}
+        >
           <TextField
             multiline
             value={inches}
@@ -65,19 +76,58 @@ const TabPanel = ({
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
-      style={{ width: "100%" }}
+      style={{
+        width: "100%",
+      }}
     >
       <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
-        <Button variant="contained" onClick={() => addTable(index)}>
-          Add Table
-        </Button>
-        <Button variant="outlined" onClick={() => removeTable(index)}>
-          Remove Table
-        </Button>
+        <Typography variant="h4" sx={{ m: 3 }}>
+          Table Content
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Button variant="contained" onClick={() => addTable(index)}>
+            Add Table
+          </Button>
+          <Button variant="outlined" onClick={() => removeTable(index)}>
+            Remove Table
+          </Button>
+        </Box>
+        {tableInput}
+
+        {tableGuide && (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <MeasureGuide
+              index={index}
+              changeHandler={updateGuide}
+              variant="h5"
+              sx={{ m: 2 }}
+            >
+              Measuring Guide (Table Specific)
+            </MeasureGuide>
+          </Box>
+        )}
       </Box>
-      {tableInput}
     </div>
   );
 };

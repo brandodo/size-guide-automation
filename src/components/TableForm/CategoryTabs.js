@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { Box, TextField, Button, Tab, Tabs } from "@mui/material";
 import TabPanel from "./TabPanel";
 
-const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
+const CategoryTabs = ({
+  tabs,
+  convert,
+  setTabs,
+  french,
+  tableGuide,
+  updateGuide,
+}) => {
   const [currentTab, setCurrentTab] = useState(0);
 
   const tabInput = tabs.map((tab, index) => {
@@ -94,11 +101,13 @@ const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
         index={index}
         convert={convert}
         data={tab}
+        tableGuide={tableGuide}
         addTable={addTable}
         removeTable={removeTable}
         updateInches={updateInches}
         updateCenti={updateCenti}
         updateTableName={updateTableName}
+        updateGuide={updateGuide}
       >
         {french ? tab.tabnameFR : tab.tabnameEN}
       </TabPanel>
@@ -113,6 +122,7 @@ const CategoryTabs = ({ tabs, convert, setTabs, french }) => {
       tabnameFR: `TAB ${tempLen + 1}`,
       tabnameEN: `TAB ${tempLen + 1}`,
       tables: [{ header: "", rowsInches: [[]], rowsCenti: [[]] }],
+      measureGuide: [[]],
     });
 
     setTabs(temp);

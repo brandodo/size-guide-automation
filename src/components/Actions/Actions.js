@@ -1,7 +1,18 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
 
-const Actions = ({ pim, toggle, header, subHeader, tabs, convert, french }) => {
+const Actions = ({
+  pim,
+  toggle,
+  header,
+  subHeader,
+  tabs,
+  convert,
+  french,
+  general,
+  tableGuide,
+  generalGuide,
+}) => {
   const buttonStyle = { height: 40, width: "25%" };
 
   const clickHandler = (action) => {
@@ -140,7 +151,25 @@ const Actions = ({ pim, toggle, header, subHeader, tabs, convert, french }) => {
           <!-- END STICKY HEADER -->`;
           })
           .join("")}
-        
+          ${
+            tableGuide
+              ? `<section class="section__size-guide-text" id="measuring-guide">
+    <div class="centered-text">
+      <h2>${french ? "Comment Measurer" : "How to Measure"}</h2>
+    </div>
+    ${tab.measureGuide
+      .map(
+        (text) => `<p>
+      <span style="font-weight: bold; text-decoration: underline"
+        >${text[0] ? `${text[0]}:` : ""}</span
+      >
+      ${text[1]}
+    </p>`
+      )
+      .join("")}
+  </section>`
+              : ""
+          }
         </div>
         <!-- TAB ${index + 1} INCHES -->
         
@@ -181,13 +210,52 @@ const Actions = ({ pim, toggle, header, subHeader, tabs, convert, french }) => {
           <!-- END STICKY HEADER -->`;
           })
           .join("")}
-          
+          ${
+            tableGuide
+              ? `<section class="section__size-guide-text" id="measuring-guide">
+    <div class="centered-text">
+      <h2>${french ? "Comment Measurer" : "How to Measure"}</h2>
+    </div>
+    ${tab.measureGuide
+      .map(
+        (text) => `<p>
+      <span style="font-weight: bold; text-decoration: underline"
+        >${text[0] ? `${text[0]}:` : ""}</span
+      >
+      ${text[1]}
+    </p>`
+      )
+      .join("")}
+  </section>`
+              : ""
+          }
         </div>
         <!-- TAB ${index + 1} CENTIMETRES -->
 
       <!-- END TABLE CONTENT -->`;
     })
     .join("")}`;
+
+    const measureGuide = `${
+      general
+        ? `<section class="section__size-guide-text" id="measuring-guide">
+    <div class="centered-text">
+      <h2>${french ? "Comment Measurer" : "How to Measure"}</h2>
+    </div>
+    ${generalGuide
+      .map(
+        (text) => `<p>
+    <span style="font-weight: bold; text-decoration: underline"
+      >${text[0] ? `${text[0]}:` : ""}</span
+    >
+    ${text[1]}
+  </p>`
+      )
+      .join("")}
+    
+  </section>`
+        : ""
+    }`;
 
     const fullCode = `${htmlHeader}
 
@@ -208,6 +276,7 @@ const Actions = ({ pim, toggle, header, subHeader, tabs, convert, french }) => {
       </div>
       <!-- END TABLE CONTAINER -->
     </section>
+    ${measureGuide}
   </div>
   <!-- END #dsg-editorial -->
   

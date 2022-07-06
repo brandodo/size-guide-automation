@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import TableForm from "./components/TableForm/TableForm";
 import Actions from "./components/Actions/Actions";
@@ -11,6 +11,9 @@ const App = () => {
   const [toggle, setToggle] = useState(false);
   const [convert, setConvert] = useState(false);
   const [french, setFrench] = useState(false);
+  const [general, setGeneral] = useState(false);
+  const [tableGuide, setTableGuide] = useState(false);
+  const [generalGuide, setGeneralGuide] = useState([[]]);
   const [tabs, setTabs] = useState([
     {
       tabnameEN: "TAB 1",
@@ -22,8 +25,26 @@ const App = () => {
           rowsCenti: [[]],
         },
       ],
+      measureGuide: [[]],
     },
   ]);
+
+  useEffect(() => {
+    if (general === true && tableGuide === true) {
+      const temp = [...tabs];
+      temp.forEach((tab) => (tab.measureGuide = [[]]));
+
+      setTabs(temp);
+      setTableGuide(false);
+    }
+  }, [general]);
+
+  useEffect(() => {
+    if (general === true && tableGuide === true) {
+      setGeneralGuide([[]]);
+      setGeneral(false);
+    }
+  }, [tableGuide]);
 
   return (
     <Box
@@ -44,7 +65,7 @@ const App = () => {
           textAlign: "left",
           width: "50%",
           alignSelf: "center",
-          backgroundColor: "lightgrey",
+          backgroundColor: "#FAF2A1",
           borderRadius: "10px",
           boxShadow: "3px 3px 5px black",
         }}
@@ -61,6 +82,8 @@ const App = () => {
         convert={convert}
         french={french}
         tabs={tabs}
+        general={general}
+        tableGuide={tableGuide}
         setPim={setPim}
         setHeader={setHeader}
         setSubHeader={setSubHeader}
@@ -68,6 +91,9 @@ const App = () => {
         setConvert={setConvert}
         setFrench={setFrench}
         setTabs={setTabs}
+        setGeneral={setGeneral}
+        setTableGuide={setTableGuide}
+        setGeneralGuide={setGeneralGuide}
       />
       <Actions
         pim={pim}
@@ -77,6 +103,9 @@ const App = () => {
         french={french}
         tabs={tabs}
         convert={convert}
+        general={general}
+        tableGuide={tableGuide}
+        generalGuide={generalGuide}
       />
       <EditAlert toggle={french} />
     </Box>

@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import HeaderInput from "./HeaderInput";
 import CategoryTabs from "./CategoryTabs";
 import SettingToggle from "./SettingToggle";
+import MeasureGuide from "./MeasureGuide";
 
 const TableForm = ({
   pim,
@@ -12,6 +13,8 @@ const TableForm = ({
   convert,
   french,
   tabs,
+  general,
+  tableGuide,
   setPim,
   setHeader,
   setSubHeader,
@@ -19,7 +22,29 @@ const TableForm = ({
   setConvert,
   setTabs,
   setFrench,
+  setGeneral,
+  setTableGuide,
+  setGeneralGuide,
 }) => {
+  const updateGuide = (input, index) => {
+    const text = input.split("\n").map((row) => {
+      if (row.includes(":")) {
+        return row.split(":");
+      } else {
+        return ["", row];
+      }
+    });
+
+    if (index >= 0) {
+      const temp = [...tabs];
+      temp[index].measureGuide = [...text];
+
+      setTabs(temp);
+    } else {
+      setGeneralGuide(text);
+    }
+  };
+
   return (
     <Box
       component="form"
@@ -29,6 +54,9 @@ const TableForm = ({
         width: "100%",
       }}
     >
+      <Typography variant="h4" sx={{ textAlign: "center", paddingTop: 4 }}>
+        Settings
+      </Typography>
       <Box
         component="div"
         sx={{
@@ -36,7 +64,10 @@ const TableForm = ({
           justifyContent: "space-evenly",
           alignSelf: "center",
           width: "50%",
-          margin: "10px 0",
+          padding: "10px 0",
+          backgroundColor: "#CCDDE2",
+          borderRadius: "8px",
+          boxShadow: "3px 3px 5px black",
         }}
       >
         <SettingToggle toggle={french} setToggle={setFrench}>
@@ -49,6 +80,38 @@ const TableForm = ({
           {french ? "PO/CM Required?" : "IN/CM Required?"}
         </SettingToggle>
       </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          alignSelf: "center",
+          backgroundColor: "#CCDDE2",
+          borderRadius: "8px",
+          width: "50%",
+          marginTop: 2,
+          boxShadow: "3px 3px 5px black",
+        }}
+      >
+        <Typography variant="h5" sx={{ p: 1 }}>
+          Measuring Guide
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 5,
+          }}
+        >
+          <SettingToggle toggle={general} setToggle={setGeneral}>
+            General
+          </SettingToggle>
+          <SettingToggle toggle={tableGuide} setToggle={setTableGuide}>
+            Table Specific
+          </SettingToggle>
+        </Box>
+      </Box>
       <HeaderInput
         pim={pim}
         header={header}
@@ -57,7 +120,9 @@ const TableForm = ({
         setHeader={setHeader}
         setSubHeader={setSubHeader}
       />
-
+      <Typography variant="h4" sx={{ textAlign: "center" }}>
+        Tabs
+      </Typography>
       <Typography
         variant="p"
         sx={{
@@ -65,7 +130,7 @@ const TableForm = ({
           width: "50%",
           textAlign: "left",
           alignSelf: "center",
-          backgroundColor: "lightgrey",
+          backgroundColor: "#FAF2A1",
           borderRadius: "10px",
           boxShadow: "3px 3px 5px black",
         }}
@@ -80,7 +145,17 @@ const TableForm = ({
         setTabs={setTabs}
         convert={convert}
         french={french}
+        tableGuide={tableGuide}
+        updateGuide={updateGuide}
       />
+
+      {general && (
+        <Box sx={{ width: "50%", alignSelf: "center" }}>
+          <MeasureGuide changeHandler={updateGuide}>
+            Measuring Guide (General)
+          </MeasureGuide>
+        </Box>
+      )}
     </Box>
   );
 };
