@@ -92,6 +92,7 @@ const TableForm = ({
           width: "50%",
           marginTop: 2,
           boxShadow: "3px 3px 5px black",
+          padding: "15px 0",
         }}
       >
         <Typography variant="h5" sx={{ p: 1 }}>

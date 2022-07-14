@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, TextField, Button, Tab, Tabs } from "@mui/material";
+import { Box, TextField, Button, Tab, Tabs, Typography } from "@mui/material";
 import TabPanel from "./TabPanel";
 
 const CategoryTabs = ({

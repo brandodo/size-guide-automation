@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 
 const HeaderInput = ({
@@ -22,9 +22,10 @@ const HeaderInput = ({
         alignItems: "center",
         width: "100%",
         gap: 2,
-        m: "15px 0",
+        padding: "45px 0",
       }}
     >
+      <Typography variant="h4">Header Text</Typography>
       <TextField
         required
         id="filled-basic"

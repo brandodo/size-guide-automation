@@ -13,7 +13,7 @@ const Actions = ({
   tableGuide,
   generalGuide,
 }) => {
-  const buttonStyle = { height: 40, width: "25%" };
+  const buttonStyle = { height: 40, width: "60%", fontWeight: "700" };
 
   const clickHandler = (action) => {
     const htmlHeader = toggle
@@ -296,17 +296,26 @@ ${toggle ? "</head>" : ""}`;
   return (
     <Box
       sx={{
-        p: "10px",
         gap: 2,
         display: "flex",
-        flexDirection: "column",
         alignItems: "center",
+        width: "20%",
       }}
     >
       <Button
         variant="outlined"
         size="small"
-        sx={buttonStyle}
+        sx={[
+          buttonStyle,
+          {
+            border: "2px solid",
+            "&:hover": {
+              color: "green",
+              border: "3px solid green",
+              backgroundColor: "lightyellow",
+            },
+          },
+        ]}
         onClick={() => clickHandler("preview")}
       >
         Preview
@@ -314,10 +323,13 @@ ${toggle ? "</head>" : ""}`;
       <Button
         variant="contained"
         size="small"
-        sx={buttonStyle}
+        sx={[
+          buttonStyle,
+          { "&:hover": { backgroundColor: "green", fontWeight: "700" } },
+        ]}
         onClick={() => clickHandler("download")}
       >
-        Download HTML
+        Download
       </Button>
     </Box>
   );

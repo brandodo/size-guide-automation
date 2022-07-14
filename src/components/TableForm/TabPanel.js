@@ -6,6 +6,7 @@ const TabPanel = ({
   value,
   index,
   data,
+  children,
   convert,
   tableGuide,
   updateTableName,
@@ -86,10 +87,26 @@ const TabPanel = ({
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          paddingBottom: "50px",
         }}
       >
         <Typography variant="h4" sx={{ m: 3 }}>
           Table Content
+        </Typography>
+        <Typography
+          sx={{
+            p: 2,
+            width: "30%",
+            textAlign: "center",
+            alignSelf: "center",
+            backgroundColor: "#FAF2A1",
+            borderRadius: "10px",
+            boxShadow: "3px 3px 5px black",
+            marginBottom: 2,
+          }}
+        >
+          If you need to create multiple tables, please add them separately by
+          using the buttons below to generate new text boxes for input.
         </Typography>
         <Box
           sx={{
@@ -123,7 +140,7 @@ const TabPanel = ({
               variant="h5"
               sx={{ m: 2 }}
             >
-              Measuring Guide (Table Specific)
+              Measuring Guide ({children})
             </MeasureGuide>
           </Box>
         )}
