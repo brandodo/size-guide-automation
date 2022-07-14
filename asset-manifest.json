@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/size-guide-automation/static/css/main.06e95b4c.css",
-    "main.js": "/size-guide-automation/static/js/main.7f7fb63a.js",
+    "main.js": "/size-guide-automation/static/js/main.d68a52d7.js",
     "index.html": "/size-guide-automation/index.html",
     "main.06e95b4c.css.map": "/size-guide-automation/static/css/main.06e95b4c.css.map",
-    "main.7f7fb63a.js.map": "/size-guide-automation/static/js/main.7f7fb63a.js.map"
+    "main.d68a52d7.js.map": "/size-guide-automation/static/js/main.d68a52d7.js.map"
   },
   "entrypoints": [
     "static/css/main.06e95b4c.css",
-    "static/js/main.7f7fb63a.js"
+    "static/js/main.d68a52d7.js"
   ]
 }
