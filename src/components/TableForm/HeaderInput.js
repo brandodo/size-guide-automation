@@ -4,10 +4,8 @@ import TextField from "@mui/material/TextField";
 
 const HeaderInput = ({
   pim,
-  header,
   subHeader,
   setPim,
-  setHeader,
   setSubHeader,
 }) => {
   const textStyle = {
@@ -34,15 +32,6 @@ const HeaderInput = ({
         value={pim}
         sx={textStyle}
         onChange={(e) => setPim(e.target.value)}
-      />
-      <TextField
-        required
-        id="filled-basic"
-        label="Title"
-        variant="filled"
-        value={header}
-        sx={textStyle}
-        onChange={(e) => setHeader(e.target.value)}
       />
       <TextField
         required

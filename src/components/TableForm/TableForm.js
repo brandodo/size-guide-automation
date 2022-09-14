@@ -16,7 +16,6 @@ const TableForm = ({
   general,
   tableGuide,
   setPim,
-  setHeader,
   setSubHeader,
   setToggle,
   setConvert,
@@ -115,10 +114,8 @@ const TableForm = ({
       </Box>
       <HeaderInput
         pim={pim}
-        header={header}
         subHeader={subHeader}
         setPim={setPim}
-        setHeader={setHeader}
         setSubHeader={setSubHeader}
       />
       <Typography variant="h4" sx={{ textAlign: "center" }}>

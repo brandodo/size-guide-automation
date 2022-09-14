@@ -6,7 +6,7 @@ import EditAlert from "./components/EditAlert/EditAlert";
 
 const App = () => {
   const [pim, setPim] = useState("");
-  const [header, setHeader] = useState("Size Guide");
+  // const [header, setHeader] = useState("Size Guide");
   const [subHeader, setSubHeader] = useState("BRAND NAME");
   const [toggle, setToggle] = useState(false);
   const [convert, setConvert] = useState(false);
@@ -28,6 +28,8 @@ const App = () => {
       measureGuide: [[]],
     },
   ]);
+
+  const header = french ? "Guide des tailles" : "Size Guide";
 
   useEffect(() => {
     if (general === true && tableGuide === true) {
@@ -113,7 +115,6 @@ const App = () => {
       </Typography>
       <TableForm
         pim={pim}
-        header={header}
         subHeader={subHeader}
         toggle={toggle}
         convert={convert}
@@ -122,7 +123,6 @@ const App = () => {
         general={general}
         tableGuide={tableGuide}
         setPim={setPim}
-        setHeader={setHeader}
         setSubHeader={setSubHeader}
         setToggle={setToggle}
         setConvert={setConvert}
